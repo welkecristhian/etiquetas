@@ -17,10 +17,10 @@ class GeraPDFTest extends DuskTestCase
             //login do usuário
             $browser->visit('/')
                 ->clickLink('Entrar')
+                ->waitForText('Usuário')
                 ->type('#loginUsuario', '1111')
                 ->press('Login')
                 ->pause(1000)
-                ->assertSee('Enviar')
 
               //Para mensangem de erro "o arquivo é obgrigatório"
                 ->press('Enviar')

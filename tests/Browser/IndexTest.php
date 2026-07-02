@@ -5,7 +5,7 @@ namespace Tests\Browser;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class etiquetasTest extends DuskTestCase
+class IndexTest extends DuskTestCase
 {
     /**
      * A Dusk test example.

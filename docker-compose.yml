@@ -36,5 +36,17 @@ services:
       - etiquetas-network
     shm_size: 2gb
 
+  senhaunica-faker:
+    image: uspdev/senhaunica-faker
+    container_name: etiquetas_senhaunica-faker
+    ports:
+      - "3141:3141"
+    environment:
+          - APP_URL=http://auth.local:3141
+    networks:
+      etiquetas-network:
+        aliases:
+          - auth.local
+
 networks:
   etiquetas-network:

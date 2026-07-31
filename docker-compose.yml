@@ -24,6 +24,24 @@ services:
       MYSQL_USER: etiquetas
       MYSQL_PASSWORD: etiquetas
       MYSQL_ROOT_PASSWORD: etiquetas
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - etiquetas-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: etiquetas_phpmyadmin
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mariadb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: etiquetas
     networks:
       - etiquetas-network
 
@@ -31,11 +49,13 @@ services:
     image: selenium/standalone-chrome
     container_name: etiquetas_selenium
     ports:
-      - "7900:7900" # VNC (pra ver o browser rodando)
+      - "7900:7900"
     networks:
       - etiquetas-network
     shm_size: 2gb
 
+  # No /etc/hosts do seu computador colocar a linha `127.0.0.1 auth.local`
+  # particularidades do protocolo oAuth1 usado na USP
   senhaunica-faker:
     image: uspdev/senhaunica-faker
     container_name: etiquetas_senhaunica-faker
@@ -50,3 +70,6 @@ services:
 
 networks:
   etiquetas-network:
+
+volumes:
+  mariadb_data:
